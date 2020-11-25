@@ -34,6 +34,20 @@ class User extends Model {
   tokens () {
     return this.hasMany('App/Models/Token')
   }
+
+  /**
+   * Get the profile record associated with the user.
+   */
+  profile () {
+    return this.hasOne('App/Models/Profile')
+  }
+
+  /**
+   * Get all order records associated with the user.
+   */
+  orders () {
+    return this.hasMany('App/Models/Order')
+  }
 }
 
 module.exports = User
