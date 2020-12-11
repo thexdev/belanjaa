@@ -1,0 +1,10 @@
+<div class="min-h-screen min-w-full hidden top-0 left-0 flex flex-col justify-center items-center bg-black bg-opacity-50" id="{{ id }}">
+  <fieldset class="mx-auto px-8 py-12 h-auto w-1/3 rounded-lg bg-white">
+    <legend class="px-5 py-2 border border-red-600 rounded-full text-sm bg-white text-red-600">
+      {{ title }}
+    </legend>
+    <div class="px-5 py-3">
+      @!yield($slot.body)
+    </div>
+  </fieldset>
+</div>
