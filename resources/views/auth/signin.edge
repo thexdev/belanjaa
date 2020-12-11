@@ -1,0 +1,45 @@
+@layout('layouts.base')
+
+@section('title')
+  Signin ({{ type || 'user' }})
+@endsection
+
+@section('content')
+  <section class="mx-auto container">
+    <form class="mx-auto w-2/5" action="{{ route('auth.attempt') }}" method="POST">
+      {{ csrfField() }}
+      <fieldset class="px-8 py-16 border-2 rounded-md">
+        <legend class="mb-4 px-5 text-3xl text-center">
+          @if(type === 'admin')
+            Welcome, admin!
+          @else
+            Welcome back!
+          @endif
+        </legend>
+        <div class="mb-10 last:mb-0">
+          <label class="mb-3 block text-sm text-black font-normal" for="email">Your e-mail</label>
+          <input class="px-5 py-3 w-full border-2 border-gray-300 rounded-md text-sm font-normal focus:outline-none focus:border-red-500" id="email" type="email" name="email" autofocus />
+        </div>
+        <div class="mb-10 last:mb-0">
+          <label class="mb-3 block text-sm text-black font-normal" for="email">Your password</label>
+          <input class="px-5 py-3 w-full border-2 border-gray-300 rounded-md text-sm font-normal focus:outline-none focus:border-red-500" id="password" type="password" name="password" />
+        </div>
+        <div class="mb-10 last:mb-0">
+          <label class="mb-3 text-sm align-middle text-black font-normal" for="remember_me">
+            <input class="mr-2 inline-block" id="remember_me" type="checkbox" name="remember" />
+            <span class="inline-block">Remember me</span>
+          </label>
+        </div>
+        <div class="mb-10 flex flex-row justify-center last:mb-0">
+          <button class="px-5 py-3 w-2/5 inline-block rounded-md bg-red-600 text-sm text-white font-normal hover:bg-red-100 hover:text-red-600" type="submit">
+            Sign in
+          </button>
+        </div>
+        <div class="mb-10 flex flex-row justify-center last:mb-0">
+          <a class="mr-5 inline-block text-xs text-indigo-600 last:mr-0" href="">Dont have an account?</a>
+          <a class="mr-5 inline-block text-xs text-indigo-600 last:mr-0" href="">Forgot password</a>
+        </div>
+      </fieldset>
+    </form>
+  </section>
+@endsection
