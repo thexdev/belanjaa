@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{ style('css/tailwind.css') }}
+  <title>
+    Belanjaa -
+    @!section('title')
+  </title>
+</head>
+<body class="min-h-screen">
+  <header class="mb-10 h-16 border-b border-gray-300 flex flex-row justify-between items-center">
+    <nav class="mx-auto container">
+      <h1 class="text-xl text-red-600">belanjaa</h1>
+      <ul>
+        <li></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="mx-auto container flex flex-row flex-no-wrap">
+    @include('partials.dashboard-sidebar')
+    <main class="flex-grow">
+      @!section('content')
+    </main>
+  </div>
+  @!section('js')
+</body>
+</html>
