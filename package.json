@@ -28,6 +28,7 @@
     "@adonisjs/shield": "^1.0.8",
     "@adonisjs/validator": "^5.0.6",
     "autoprefixer": "^10.0.4",
+    "lodash": "^4.17.20",
     "mysql": "^2.18.1",
     "postcss": "^8.1.14",
     "tailwindcss": "^2.0.1"
