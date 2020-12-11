@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{ cspMeta() }}
+
+  <!-- styles -->
+  {{ style('css/tailwind.css') }}
+
+  <title>
+    Belanjaa |
+    @!section('title')
+  </title>
+</head>
+<body class="min-h-screen bg-white">
+  @include('partials.base-navbar')
+
+  @!section('content')
+</body>
+</html>
