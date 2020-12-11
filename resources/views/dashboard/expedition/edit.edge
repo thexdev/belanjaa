@@ -1,0 +1,43 @@
+@layout('layouts.dashboard')
+
+@section('title')
+  Edit Expedition
+@endsection
+
+@section('content')
+  <section class="py-8 px-5">
+    <form action="{{ route('dashboard.expedition.update', { id: provider.id }) + '?_method=PUT' }}" method="POST">
+      {{ csrfField() }}
+      <fieldset class="p-12 border border-gray-300 rounded-lg">
+        <legend class="px-6 py-2 border border-red-600 rounded-full text-sm text-red-600">Add new expedition</legend>
+        @if(flashMessage('notification'))  
+          <div class="mb-10 flex flex-row items-center">
+            <svg class="mr-2" role="img" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" aria-labelledby="circleOkIconTitle" stroke="#2c9989" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#2c9989">
+              <title id="circleOkIconTitle">OK</title>
+              <polyline points="7 13 10 16 17 9"/>
+              <circle cx="12" cy="12" r="10"/>
+            </svg>
+            <span class="inline-block text-sm text-green-600">{{ flashMessage('notification') }}</span>
+          </div>
+        @endif
+        <div class="mx-auto mb-10 w-1/2 last:mb-0">
+          <label class="mb-3 block text-sm text-black" for="name">
+            <span class="mr-2 inline-block text-xs text-red-500">*</span>Name
+          </label>
+          <input class="mb-2 py-3 px-5 w-full border border-gray-300 block rounded-lg text-sm focus:border-red-500 focus:outline-none" id="name" type="text" name="name" value="{{ old('name', provider.name) }}" autocomplete="off" />
+          {{ elIf('<small class="text-red-500">$self</small>', getErrorFor('name'), hasErrorFor('name')) }}
+        </div>
+        <div class="mx-auto mb-10 w-1/2 last:mb-0">
+          <label class="mb-3 block text-sm text-black" for="packet">
+            <span class="mr-2 inline-block text-xs text-red-500">*</span>Packet
+          </label>
+          <input class="mb-2 py-3 px-5 w-full border border-gray-300 block rounded-lg text-sm focus:border-red-500 focus:outline-none" id="packet" type="text" name="packet" value="{{ old('packet', provider.packet) }}" autocomplete="off" />
+          {{ elIf('<small class="text-red-500">$self</small>', getErrorFor('packet'), hasErrorFor('packet')) }}
+        </div>
+        <div class="mx-auto mb-10 w-1/2 last:mb-0">
+          <button class="px-6 py-2 rounded-full bg-red-600 text-sm text-white focus:outline-none" type="submit">Save</button>
+        </div>
+      </fieldset>
+    </form>
+  </section>
+@endsection
