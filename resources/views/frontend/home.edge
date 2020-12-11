@@ -1,0 +1,15 @@
+@layout('layouts.base')
+
+@section('title')
+  Home
+@endsection
+
+@section('content')
+  <section class="mx-auto container grid grid-cols-4 gap-x-3 gap-y-8">
+    @each(index in range(0, 12))
+      <a class="hover:no-underline" href="">
+        @!component('components/product')
+      </a>
+    @endeach
+  </section>
+@endsection
