@@ -1,0 +1,31 @@
+<header class="mb-16 py-4 min-w-full bg-red-600">
+  <nav class="mx-auto container flex flex-row items-center">
+    <img class="mr-10 rounded-full flex-none" src="https://via.placeholder.com/50" alt="belanjaa">
+    <form action="" class="mr-10 w-5/12 flex flex-row flex-none">
+      <input class="px-5 py-3 rounded-l-md flex-grow block text-sm font-normal focus:outline-none focus:ring-4 focus:ring-red-400 placeholder-gray-400" placeholder="Search product..." type="search">
+      <button class="p-2 rounded-r-md bg-gray-300 focus:outline-none">
+        <svg role="img" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" aria-labelledby="searchIconTitle" stroke="#000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#000">
+          <title id="searchIconTitle">Search</title>
+          <path d="M14.4121122,14.4121122 L20,20"/>
+          <circle cx="10" cy="10" r="6"/>
+        </svg>
+      </button>
+    </form>
+    <ul class="mr-10 flex flex-row flex-grow justify-center">
+      <li class="mr-8 last:mr-0">
+        <a class="text-white font-normal text-sm" href="{{ route('frontend.home') }}">Home</a>
+      </li>
+      <li class="mr-8 last:mr-0">
+        <a class="text-white font-normal text-sm" href="{{ route('frontend.product') }}">Category</a>
+      </li>
+      <li class="mr-8 last:mr-0">
+        <a class="text-white font-normal text-sm" href="{{ route('frontend.product') }}">Product</a>
+      </li>
+    </ul>
+    <svg class="ml-auto flex-none" role="img" xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 24 24" aria-labelledby="userIconTitle" stroke="#ffffff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#2329D6">
+      <title id="userIconTitle">User</title>
+      <path stroke-linecap="round" d="M5.5,19.5 C7.83333333,18.5 9.33333333,17.6666667 10,17 C11,16 8,16 8,11 C8,7.66666667 9.33333333,6 12,6 C14.6666667,6 16,7.66666667 16,11 C16,16 13,16 14,17 C14.6666667,17.6666667 16.1666667,18.5 18.5,19.5"/>
+      <circle cx="12" cy="12" r="10"/>
+    </svg>
+  </nav>
+</header>
