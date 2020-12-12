@@ -30,11 +30,18 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/dashboard', 'DashboardController.index').as('dashboard.index')
 
+  Route.get('/categories', 'CategoryController.index').as('dashboard.category.index')
+  Route.get('/categories/add', 'CategoryController.add').as('dashboard.category.add')
+  Route.post('/categories/store', 'CategoryController.store').as('dashboard.category.store')
+  Route.get('/categories/edit/:id', 'CategoryController.edit').as('dashboard.category.edit')
+  Route.put('/categories/udpate/:id', 'CategoryController.update').as('dashboard.category.update')
+  Route.delete('/categories/delete/:id', 'CategoryController.delete').as('dashboard.category.delete')
+
   Route.get('/expeditions', 'ExpeditionController.index').as('dashboard.expedition.index')
   Route.get('/expeditions/add', 'ExpeditionController.add').as('dashboard.expedition.add')
-  Route.post('/expeditions/store', 'ExpeditionController.store').as('dashboard.expedition.store')
+  Route.post('/expeditions/store', 'ExpeditionController.store').as('dashboard.expedition.store').validator('StoreExpedition')
   Route.get('/expeditions/edit/:id', 'ExpeditionController.edit').as('dashboard.expedition.edit')
-  Route.put('/expeditions/update/:id', 'ExpeditionController.update').as('dashboard.expedition.update')
+  Route.put('/expeditions/update/:id', 'ExpeditionController.update').as('dashboard.expedition.update').validator('StoreExpedition')
   Route.delete('/expeditions/delete/:id', 'ExpeditionController.destroy').as('dashboard.expedition.delete')
 })
   .namespace('Admin')
