@@ -1,0 +1,55 @@
+@layout('layouts.dashboard')
+
+@section('title')
+  Manage Category
+@endsection
+
+@section('content')
+  <section class="py-8 px-5">
+    <form action="{{ route('dashboard.category.update', { id: category.id }) + '?_method=PUT' }}" method="POST" enctype="multipart/form-data">
+      {{ csrfField() }}
+      <fieldset class="p-12 border border-gray-300 rounded-lg">
+        <legend class="px-6 py-2 border border-red-600 rounded-full text-sm text-red-600">Add new expedition</legend>
+        @if(flashMessage('notification'))  
+          <div class="mb-10 flex flex-row items-center">
+            <svg class="mr-2" role="img" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" aria-labelledby="circleOkIconTitle" stroke="#2c9989" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#2c9989">
+              <title id="circleOkIconTitle">OK</title>
+              <polyline points="7 13 10 16 17 9"/>
+              <circle cx="12" cy="12" r="10"/>
+            </svg>
+            <span class="inline-block text-sm text-green-600">{{ flashMessage('notification') }}</span>
+          </div>
+        @endif
+        @if(flashMessage('error'))
+          <div class="mb-10 flex flex-row items-center">
+            <svg class="mr-2" role="img" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" aria-labelledby="cancelIconTitle" stroke="#dc2626" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#dc2626">
+              <title id="cancelIconTitle">Cancel</title>
+              <path d="M15.5355339 15.5355339L8.46446609 8.46446609M15.5355339 8.46446609L8.46446609 15.5355339"/>
+              <path d="M4.92893219,19.0710678 C1.02368927,15.1658249 1.02368927,8.83417511 4.92893219,4.92893219 C8.83417511,1.02368927 15.1658249,1.02368927 19.0710678,4.92893219 C22.9763107,8.83417511 22.9763107,15.1658249 19.0710678,19.0710678 C15.1658249,22.9763107 8.83417511,22.9763107 4.92893219,19.0710678 Z"/>
+            </svg>
+            <span class="inline-block text-sm text-red-600">{{ flashMessage('error') }}</span>
+          </div>
+        @endif
+        <div class="mx-auto mb-10 w-1/2 last:mb-0">
+          <label class="mb-3 block text-sm text-black" for="name">
+            <span class="mr-2 inline-block text-xs text-red-500">*</span>Name
+          </label>
+          <input class="mb-2 py-3 px-5 w-full border border-gray-300 block rounded-lg text-sm focus:border-red-500 focus:outline-none" id="name" type="text" name="name" value="{{ old('name', category.name) }}" autocomplete="off" />
+          {{ elIf('<small class="text-red-500">$self</small>', getErrorFor('name'), hasErrorFor('name')) }}
+        </div>
+        <div class="mx-auto mb-10 w-1/2 last:mb-0">
+          <label class="mb-3 block text-sm text-black" for="packet">Icon</label>
+          <div class="flex flex-row justify-between items-center">
+            <input class="mr-2 mb-2 py-3 px-5 border border-gray-300 flex-grow block rounded-lg text-sm focus:border-red-500 focus:outline-none" id="icon" type="file" name="icon" value="{{ old('icon', '') }}" />
+            <img class="border border-gray-300 rounded-full flex-none" src="{{ assetsUrl(category.icon) }}" alt="{{ category.name }}" width="40" height="40">
+          </div>
+          <em class="block text-xs text-gray-400">Max size: 1MB</em>
+          {{ elIf('<small class="text-red-500">$self</small>', getErrorFor('icon'), hasErrorFor('icon')) }}
+        </div>
+        <div class="mx-auto mb-10 w-1/2 last:mb-0">
+          <button class="px-6 py-2 rounded-full bg-red-600 text-sm text-white focus:outline-none" type="submit">Save</button>
+        </div>
+      </fieldset>
+    </form>
+  </section>
+@endsection
