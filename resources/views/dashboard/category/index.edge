@@ -1,0 +1,167 @@
+@layout('layouts.dashboard')
+
+@section('title')
+  Manage Category
+@endsection
+
+@section('content')
+  @component('components.dialog-box', id = 'confirmationDialogBox', title = 'confirmation')
+    @slot('body')
+      <p class="mb-10 text-center text-lg text-gray-700">
+        Are you sure to <span class="text-red-600">delete</span> this item?
+        <br>
+        once deleted, you cannot recover it
+      </p>
+      <div class="flex flex-row justify-center">
+        <a class="mr-2 px-5 py-2 border border-red-600 rounded-full text-sm text-red-600" id="cancelConfirmation" href="javascript:void(0);">Cancel</a>
+        <a class="px-5 py-2 border rounded-full bg-red-600 text-sm text-white" id="yesConfirmation" href="javascript:void(0);">Yes, sure</a>
+      </div>
+    @endslot
+  @endcomponent
+  <section class="py-8 px-5">
+    <div class="mb-10 flex flex-row">
+      <form action="{{ route('dashboard.category.index') }}" method="GET">
+        <input class="px-5 py-2 border border-gray-300 rounded-full text-sm focus:outline-none" type="search" name="q" placeholder="Search..." />
+      </form>
+      <a class="ml-auto px-6 py-2 rounded-full inline-block bg-red-600 text-sm text-white" href="{{ route('dashboard.category.add') }}">Add</a>
+    </div>
+    @if(flashMessage('notification'))  
+      <div class="mb-10 flex flex-row items-center">
+        <svg class="mr-2" role="img" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" aria-labelledby="circleOkIconTitle" stroke="#2c9989" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#2c9989">
+          <title id="circleOkIconTitle">OK</title>
+          <polyline points="7 13 10 16 17 9"/>
+          <circle cx="12" cy="12" r="10"/>
+        </svg>
+        <span class="inline-block text-sm text-green-600">{{ flashMessage('notification') }}</span>
+      </div>
+    @endif
+    <div class="border border-gray-300 rounded-lg">
+      <table class="w-full table-auto">
+        <thead class="border-b border-gray-300">
+          <tr>
+            <th class="py-4 px-5 text-xs text-left text-gray-500 font-semibold">#</th>
+            <th class="py-4 px-5 text-xs text-left text-gray-500 font-semibold">Name</th>
+            <th class="py-4 px-5 text-xs text-left text-gray-500 font-semibold">Last update</th>
+            <th class="py-4 px-5 text-xs text-left text-gray-500 font-semibold">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @each(category in categories.data)
+            <tr class="border-b last:border-0 hover:bg-gray-100">
+              <td class="py-4 px-5 text-sm text-left text-gray-500">{{ $loop.index + 1 }}</td>
+              <td class="py-4 px-5 text-sm text-left">
+                <div class="flex flex-row items-center">
+                  <img class="mr-3 rounded-full" src="{{ assetsUrl(category.icon) }}" alt="{{ category.name }}" width="30" height="30">
+                  <span class="inline-block">{{ category.name }}</span>
+                </div>
+              </td>
+              <td class="py-4 px-5 text-sm text-left">{{ category.updated_at }}</td>
+              <td class="py-4 px-5">
+                <a class="mr-2 inline-block text-xs text-indigo-800 last:mr-0" href="{{ route('dashboard.category.edit', { id: category.id }) }}">
+                  edit
+                </a>
+                <a class="mr-2 inline-block text-xs text-indigo-800 last:mr-0" href="{{ route('dashboard.category.delete', { id: category.id }) }}" onclick="confirmation.open(event)" data-form-delete-id="form-delete-{{ category.id }}">
+                  delete
+                </a>
+                <form class="hidden" id="form-delete-{{ category.id }}" action="{{ route('dashboard.category.delete', { id: category.id }) + '?_method=DELETE' }}" method="POST">
+                  {{ csrfField() }}
+                </form>
+              </td>
+            </tr>
+          @else
+            <tr>
+              <td class="py-4 px-5 text-sm text-center" colspan="5">
+                <svg class="mx-auto mb-2" role="img" xmlns="http://www.w3.org/2000/svg" width="48px" height="48px" viewBox="0 0 24 24" aria-labelledby="inboxIconTitle" stroke="#d1d5db" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#000000">
+                  <title id="inboxIconTitle">Inbox</title>
+                  <path d="M3 10H9V13H15V10H21"/>
+                  <path d="M3 10L6 4H18L21 10V20H3V10Z"/>
+                </svg>
+                <span>No category found</span>
+              </td>
+            </tr>
+          @endeach
+        </tbody>
+        <tfoot class="border-t">
+          <tr>
+            <td class="py-4 px-5 text-xs" colspan="3">
+              <span class="mr-1 text-gray-500">Total item(s):</span>
+              <span class="mr-8 text-gray-500">{{ categories.total }}</span>
+              <span class="mr-1 text-gray-500">Page:</span>
+              <span class="mr-8 text-gray-500">{{ categories.page }}</span>
+              <span class="mr-1 text-gray-500">Per page:</span>
+              <span class="mr-8 text-gray-500">{{ categories.perPage }}</span>
+            </td>
+            <td class="py-4 px-5 text-xs" colspan="2">
+              <div class="flex flex-row justify-end">
+                <a class="mr-3 flex flex-row items-center text-gray-500 last:mr-0" href="{{ route('dashboard.category.index') + '?page=' + 1 }}">
+                  <svg role="img" xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24" aria-labelledby="chevronsLeftIconTitle" stroke="#6b7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#6b7280">
+                    <title id="chevronsLeftIconTitle">Chevron Left</title>
+                    <polyline points="11 17 6 12 11 7 11 7"/>
+                    <polyline points="17 17 12 12 17 7 17 7"/>
+                  </svg>
+                  <span class="inline-block">first</span>
+                </a>
+                <a class="mr-3 flex flex-row items-center text-gray-500 last:mr-0" href="{{ route('dashboard.category.index') + '?page=' + (categories.page + 1) }}">
+                  <span class="inline-block">next</span>
+                  <svg role="img" xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24" aria-labelledby="chevronRightIconTitle" stroke="#6b7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#6b7280">
+                    <title id="chevronRightIconTitle">Chevron Right</title>
+                    <polyline points="10 6 16 12 10 18 10 18"/>
+                  </svg>
+                </a>
+                <a class="mr-3 flex flex-row items-center text-gray-500 last:mr-0" href="{{ route('dashboard.category.index') + '?page=' + (categories.page - 1) }}">
+                  <svg role="img" xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24" aria-labelledby="chevronLeftIconTitle" stroke="#6b7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#6b7280">
+                    <title id="chevronLeftIconTitle">Chevron Left</title>
+                    <polyline points="14 18 8 12 14 6 14 6"/>
+                  </svg>
+                  <span class="inline-block">previous</span>
+                </a>
+                <a class="mr-3 flex flex-row items-center text-gray-500 last:mr-0" href="{{ route('dashboard.category.index') + '?page=' + categories.lastPage}}">
+                  <span class="inline-block">last</span>
+                  <svg role="img" xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24" aria-labelledby="chevronsRightIconTitle" stroke="#6b7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#6b7280">
+                    <title id="chevronsRightIconTitle">Chevrons Right</title>
+                    <polyline points="13 7 18 12 13 17 13 17"/>
+                    <polyline points="7 7 12 12 7 17 7 17"/>
+                  </svg>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+@endsection
+
+@section('js')
+  <script async>
+    const confirmation = {
+      buttons: {
+        cancel: {
+          onClick (e) {
+            e.preventDefault()
+            document.getElementById('confirmationDialogBox').classList.remove('fixed')
+            document.getElementById('confirmationDialogBox').classList.add('hidden')
+          }
+        },
+        yes: {
+          onClick (e) {
+            e.preventDefault()
+            document.getElementById(document.getElementById('confirmationDialogBox').dataset.formDeleteId).submit()
+          }
+        },
+      },
+      open (e, node) {
+        e.preventDefault()
+        document.getElementById('confirmationDialogBox').classList.remove('hidden')
+        document.getElementById('confirmationDialogBox').classList.add('fixed')
+        document.getElementById('confirmationDialogBox').dataset.formDeleteId = e.target.dataset.formDeleteId
+      }
+    }
+
+    const cancelBtn = document.getElementById('cancelConfirmation')
+    const yesBtn = document.getElementById('yesConfirmation')
+
+    cancelBtn.addEventListener('click', confirmation.buttons.cancel.onClick)
+    yesBtn.addEventListener('click', confirmation.buttons.yes.onClick)
+  </script>
+@endsection
