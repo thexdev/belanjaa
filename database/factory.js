@@ -23,6 +23,13 @@ Factory.blueprint('App/Models/User', (faker, i, data) => {
   }
 })
 
+Factory.blueprint('App/Models/Category', (faker) => {
+  return {
+    name: faker.word(),
+    icon: 'https://via.placeholder.com/50'
+  }
+})
+
 Factory.blueprint('App/Models/Expedition', (faker) => {
   return {
     name: faker.word(),
