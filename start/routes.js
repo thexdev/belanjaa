@@ -32,10 +32,10 @@ Route.group(() => {
 
   Route.get('/categories', 'CategoryController.index').as('dashboard.category.index')
   Route.get('/categories/add', 'CategoryController.add').as('dashboard.category.add')
-  Route.post('/categories/store', 'CategoryController.store').as('dashboard.category.store')
+  Route.post('/categories/store', 'CategoryController.store').as('dashboard.category.store').validator('StoreCategory')
   Route.get('/categories/edit/:id', 'CategoryController.edit').as('dashboard.category.edit')
-  Route.put('/categories/udpate/:id', 'CategoryController.update').as('dashboard.category.update')
-  Route.delete('/categories/delete/:id', 'CategoryController.delete').as('dashboard.category.delete')
+  Route.put('/categories/udpate/:id', 'CategoryController.update').as('dashboard.category.update').validator('UpdateCategory')
+  Route.delete('/categories/delete/:id', 'CategoryController.destroy').as('dashboard.category.delete')
 
   Route.get('/expeditions', 'ExpeditionController.index').as('dashboard.expedition.index')
   Route.get('/expeditions/add', 'ExpeditionController.add').as('dashboard.expedition.add')
