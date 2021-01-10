@@ -30,6 +30,9 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/dashboard', 'DashboardController.index').as('dashboard.index')
 
+  Route.get('/products', 'ProductController.index').as('dashboard.product.index')
+  Route.get('/products/add', 'ProductController.add').as('dashboard.product.add')
+
   Route.get('/categories', 'CategoryController.index').as('dashboard.category.index')
   Route.get('/categories/add', 'CategoryController.add').as('dashboard.category.add')
   Route.post('/categories/store', 'CategoryController.store').as('dashboard.category.store').validator('StoreCategory')
